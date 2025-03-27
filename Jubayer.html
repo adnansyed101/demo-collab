@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Demo | Jubayer Ahmed</title>
+    <style>
+      body {
+        padding: 10px;
+        background-color: rgb(244, 244, 244);
+
+        & h2 {
+          text-align: center;
+          font-size: 40px;
+          font-weight: bold;
+        }
+
+        & #container {
+          max-width: 500px;
+          margin: 0 auto;
+          background-color: white;
+          padding: 20px;
+          border-radius: 5px;
+          box-shadow: 0 0 2px #9f9f9f;
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          align-items: center;
+
+          & img {
+            max-height: 130px;
+            border-radius: 50%;
+            margin-bottom: -20px;
+          }
+          & h2 {
+            font-size: 30px;
+          }
+        }
+      }
+
+      a {
+        font-size: 30px;
+        position: absolute;
+        top: 20px;
+        left: 20px;
+        text-decoration: none;
+        font-weight: bold;
+      }
+    </style>
+  </head>
+  <body>
+    <div>
+      <h2>Welcome to Jubayer Contributions</h2>
+      <div id="container">
+        <img alt="avatar" />
+        <h2></h2>
+        <br />
+        <hr />
+      </div>
+    </div>
+    <a href="./index.html"> < Back to Home</a>
+  </body>
+
+  <script>
+    const container = document.getElementById("container");
+    const img = container.querySelector("img");
+    const h2 = container.querySelector("h2");
+
+    fetch("https://api.github.com/users/mr-jubayer")
+      .then((res) => res.json())
+      .then((data) => {
+        const { avatar_url, bio, followers, name, location, public_repos } =
+          data;
+
+        img.setAttribute("src", avatar_url);
+        h2.innerText = name;
+
+        container.innerHTML += `
+        <p> ${bio} </p>
+        <ul>
+            <li> Followers: ${followers} </li>
+            <li> Location: ${location} </li>
+            <li> Repositories: ${public_repos} </li>
+            </ul>
+        `;
+      });
+  </script>
+</html>
